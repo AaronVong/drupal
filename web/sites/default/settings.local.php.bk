@@ -1,0 +1,21 @@
+<?php
+$databases['default']['default'] = [
+  'database' => 'gutenberg',
+  'username' => 'admin',
+  'password' => '123456',
+  'prefix' => '',
+  'host' => 'gutenberg_db_service',
+  'port' => '3306',
+  'namespace' => 'Drupal\\Core\\Database\\Driver\\mysql',
+  'driver' => 'mysql',
+];
+
+// @codingStandardsIgnoreFile
+$settings['container_yamls'][] = DRUPAL_ROOT . '/sites/development.services.yml';
+$settings['cache']['bins']['render'] = 'cache.backend.null';
+$settings['cache']['bins']['dynamic_page_cache'] = 'cache.backend.null';
+$settings['cache']['bins']['page'] = 'cache.backend.null';
+$settings['config_sync_directory'] = '/directory/outside/webroot';
+$config['system.logging']['error_level'] = 'verbose';
+ini_set('opcache.enable', '0');
+ini_set('max_execution_time', 9999);
