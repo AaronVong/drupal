@@ -1,0 +1,12 @@
+name: Gutenberg AV Block
+type: module
+description: Gutenberg Block From AV.
+package: Gutenberg
+core_version_requirement: ^9 || ^10
+dependencies:
+  - "drupal:gutenberg"
+
+# Information added by Drupal.org packaging script on 2023-10-16
+version: '8.x-2.8'
+project: 'gutenberg'
+datestamp: 1697496074

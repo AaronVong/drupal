@@ -17,6 +17,7 @@
     "require": {
         "composer/installers": "^2.0",
         "drupal/admin_toolbar": "^3.4",
+        "drupal/commerce": "^2.38",
         "drupal/config_ignore": "^3.2",
         "drupal/config_split": "^2.0",
         "drupal/core-composer-scaffold": "^10.2",
@@ -24,6 +25,7 @@
         "drupal/core-recommended": "^10.2",
         "drupal/filter_perms": "^2.0",
         "drupal/gutenberg": "^2.8",
+        "drupal/inline_entity_form": "^3.0@RC",
         "drupal/menu_export": "^1.4",
         "drupal/paragraphs": "^1.17",
         "drupal/restui": "^1.21",
