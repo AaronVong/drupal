@@ -20,6 +20,7 @@ module:
   contact: 0
   content_moderation: 0
   contextual: 0
+  custom_linkset: 0
   datetime: 0
   dblog: 0
   dynamic_page_cache: 0
@@ -39,6 +40,9 @@ module:
   media: 0
   media_library: 0
   menu_export: 0
+  menu_item_fields: 0
+  menu_item_fields_ui: 0
+  menu_item_role_access: 0
   menu_link_content: 0
   menu_ui: 0
   mysql: 0

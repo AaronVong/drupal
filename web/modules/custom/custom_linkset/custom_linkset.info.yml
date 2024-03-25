@@ -1,0 +1,5 @@
+name: Custom Linkset
+type: module
+core_version_requirement: ^10
+description: Customize Linkset route
+package: Custom

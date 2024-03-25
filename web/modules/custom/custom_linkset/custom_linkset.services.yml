@@ -1,0 +1,6 @@
+services:
+  custom_linkset.linkset_route_subscriber:
+    class: Drupal\custom_linkset\EventSubscriber\LinksetRouteSubscriber
+    tags:
+      - { name : event_subscriber }
+    arguments: ['%authentication_providers%', '@config.factory', '@router.builder']

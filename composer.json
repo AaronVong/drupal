@@ -27,6 +27,8 @@
         "drupal/gutenberg": "^2.8",
         "drupal/inline_entity_form": "^3.0@RC",
         "drupal/menu_export": "^1.4",
+        "drupal/menu_item_fields": "^1.10",
+        "drupal/menu_item_role_access": "^2.1",
         "drupal/paragraphs": "^1.17",
         "drupal/restui": "^1.21",
         "drush/drush": "^12.4"
