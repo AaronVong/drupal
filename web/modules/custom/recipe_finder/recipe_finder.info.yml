@@ -1,0 +1,9 @@
+name: Recipe Finder
+type: module
+description: This module provide functionality for project Recipe Finder App
+core_version_requirement: ^10
+package: Custom
+version: "1.0.0"
+dependencies:
+  - "drupal:user"
+  - "drupal:link"

@@ -1,0 +1,10 @@
+entity.favorite_recipe.edit_form:
+  route_name: entity.favorite_recipe.edit_form
+  group: favorite_recipe
+  title: 'Edit'
+
+entity.favorite_recipe.delete_form:
+  route_name: entity.favorite_recipe.delete_form
+  group: favorite_recipe
+  title: 'Delete'
+  weight: 10

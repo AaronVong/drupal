@@ -1,0 +1,7 @@
+entity.favorite_recipe.settings:
+  path: 'admin/structure/favorite-recipe'
+  defaults:
+    _form: '\Drupal\recipe_finder\Form\FavoriteRecipeSettingsForm'
+    _title: 'Favorite Recipe'
+  requirements:
+    _permission: 'administer favorite_recipe'

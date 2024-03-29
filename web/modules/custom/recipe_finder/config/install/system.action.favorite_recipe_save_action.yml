@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - recipe_finder
+id: favorite_recipe_save_action
+label: 'Save favorite recipes'
+type: favorite_recipe
+plugin: entity:save_action:favorite_recipe
+configuration: {  }

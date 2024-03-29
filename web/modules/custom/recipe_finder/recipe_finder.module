@@ -1,0 +1,85 @@
+<?php
+
+declare(strict_types=1);
+
+/**
+ * @file
+ * Provides a favorite recipe entity type.
+ */
+
+use Drupal\Core\Render\Element;
+use Drupal\user\UserInterface;
+
+/**
+ * Implements hook_theme().
+ */
+function recipe_finder_theme(): array {
+  return [
+    'favorite_recipe' => ['render element' => 'elements'],
+  ];
+}
+
+/**
+ * Prepares variables for favorite recipe templates.
+ *
+ * Default template: favorite-recipe.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - elements: An associative array containing the favorite recipe information and any
+ *     fields attached to the entity.
+ *   - attributes: HTML attributes for the containing element.
+ */
+function template_preprocess_favorite_recipe(array &$variables): void {
+  $variables['view_mode'] = $variables['elements']['#view_mode'];
+  foreach (Element::children($variables['elements']) as $key) {
+    $variables['content'][$key] = $variables['elements'][$key];
+  }
+}
+
+/**
+ * Implements hook_user_cancel().
+ */
+function recipe_finder_user_cancel($edit, UserInterface $account, $method): void {
+  switch ($method) {
+    case 'user_cancel_block_unpublish':
+      // Unpublish favorite recipes.
+      $storage = \Drupal::entityTypeManager()->getStorage('favorite_recipe');
+      $favorite_recipe_ids = $storage->getQuery()
+        ->condition('uid', $account->id())
+        ->condition('status', 1)
+        ->accessCheck(FALSE)
+        ->execute();
+      foreach ($storage->loadMultiple($favorite_recipe_ids) as $favorite_recipe) {
+        $favorite_recipe->set('status', FALSE)->save();
+      }
+      break;
+
+    case 'user_cancel_reassign':
+      // Anonymize favorite recipes.
+      $storage = \Drupal::entityTypeManager()->getStorage('favorite_recipe');
+      $favorite_recipe_ids = $storage->getQuery()
+        ->condition('uid', $account->id())
+        ->accessCheck(FALSE)
+        ->execute();
+      foreach ($storage->loadMultiple($favorite_recipe_ids) as $favorite_recipe) {
+        $favorite_recipe->setOwnerId(0)->save();
+      }
+      break;
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_predelete() for user entities.
+ */
+function recipe_finder_user_predelete(UserInterface $account): void {
+  // Delete favorite recipes that belong to this account.
+  $storage = \Drupal::entityTypeManager()->getStorage('favorite_recipe');
+  $favorite_recipe_ids = $storage->getQuery()
+    ->condition('uid', $account->id())
+    ->accessCheck(FALSE)
+    ->execute();
+  $storage->delete(
+    $storage->loadMultiple($favorite_recipe_ids)
+  );
+}

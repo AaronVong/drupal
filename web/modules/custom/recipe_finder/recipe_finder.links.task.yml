@@ -1,0 +1,22 @@
+entity.favorite_recipe.settings:
+  title: 'Settings'
+  route_name: entity.favorite_recipe.settings
+  base_route: entity.favorite_recipe.settings
+entity.favorite_recipe.view:
+  title: 'View'
+  route_name: entity.favorite_recipe.canonical
+  base_route: entity.favorite_recipe.canonical
+entity.favorite_recipe.edit_form:
+  title: 'Edit'
+  route_name: entity.favorite_recipe.edit_form
+  base_route: entity.favorite_recipe.canonical
+entity.favorite_recipe.delete_form:
+  title: 'Delete'
+  route_name: entity.favorite_recipe.delete_form
+  base_route: entity.favorite_recipe.canonical
+  weight: 10
+entity.favorite_recipe.collection:
+  title: 'Favorite Recipes'
+  route_name: entity.favorite_recipe.collection
+  base_route: system.admin_content
+  weight: 10

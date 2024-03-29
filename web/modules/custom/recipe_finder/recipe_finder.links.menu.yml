@@ -1,0 +1,11 @@
+entity.favorite_recipe.settings:
+  title: 'Favorite Recipe'
+  description: 'Configure a Favorite Recipe entity type.'
+  route_name:  entity.favorite_recipe.settings
+  parent: system.admin_structure
+
+entity.favorite_recipe.collection:
+  title: 'Favorite Recipes'
+  description: 'List of favorite recipes.'
+  route_name: entity.favorite_recipe.collection
+  parent: system.admin_content

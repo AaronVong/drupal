@@ -1,0 +1,11 @@
+administer favorite_recipe:
+  title: 'Administer favorite recipes'
+  restrict access: true
+view favorite_recipe:
+  title: 'View favorite recipe'
+edit favorite_recipe:
+  title: 'Edit favorite recipe'
+delete favorite_recipe:
+  title: 'Delete favorite recipe'
+create favorite_recipe:
+  title: 'Create favorite recipe'

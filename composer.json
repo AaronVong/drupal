@@ -31,6 +31,7 @@
         "drupal/menu_item_role_access": "^2.1",
         "drupal/paragraphs": "^1.17",
         "drupal/restui": "^1.21",
+        "drupal/simple_oauth": "^5.2",
         "drush/drush": "^12.4"
     },
     "conflict": {

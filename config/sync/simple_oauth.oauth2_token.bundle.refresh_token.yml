@@ -1,0 +1,10 @@
+uuid: 02a20326-b6f1-41ae-bc0a-a8b4cdbb0461
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: YWMv3Do9fsPFhylyFkOwcqcFP4jSU6DLRootOlgrC0M
+id: refresh_token
+label: 'Refresh token'
+description: 'The refresh token type.'
+locked: true

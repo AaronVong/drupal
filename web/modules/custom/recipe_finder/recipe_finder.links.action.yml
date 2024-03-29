@@ -1,0 +1,5 @@
+favorite_recipe.add_form:
+  title: 'Add favorite recipe'
+  route_name: entity.favorite_recipe.add_form
+  appears_on:
+    - entity.favorite_recipe.collection
