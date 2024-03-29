@@ -8,26 +8,28 @@ configuration:
       - xml
     supported_auth:
       - cookie
+      - oauth2
   POST:
     supported_formats:
       - json
       - xml
     supported_auth:
       - cookie
+      - oauth2
   PATCH:
     supported_formats:
       - json
       - xml
     supported_auth:
       - cookie
+      - oauth2
   DELETE:
     supported_formats:
       - json
       - xml
     supported_auth:
       - cookie
-    status:
-      false
+      - oauth2
 dependencies:
   module:
     - user
