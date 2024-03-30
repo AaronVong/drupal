@@ -1,0 +1,21 @@
+uuid: 8923f827-ed95-4c7c-9e3b-d973eada1d4d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_p_fr_recipe_name
+    - paragraphs.paragraphs_type.favorite_recipe
+_core:
+  default_config_hash: vhrLZ-p5gUsBl3N1HJgAIYDQObcZedF2Ft6HHtrmiqo
+id: paragraph.favorite_recipe.field_p_fr_recipe_name
+field_name: field_p_fr_recipe_name
+entity_type: paragraph
+bundle: favorite_recipe
+label: 'Recipe Name'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

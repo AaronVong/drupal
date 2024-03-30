@@ -1,0 +1,26 @@
+uuid: 4acf404b-7b43-4658-8788-bd89871d1ee8
+langcode: en
+status: true
+dependencies:
+  module:
+    - paragraphs
+  enforced:
+    module:
+      - recipe_finder
+_core:
+  default_config_hash: 1emCqHgp3nOTdUCH5UhS8QKartvzqvG2CXhosYoaQ4U
+id: paragraph.field_p_fr_recipe_id
+field_name: field_p_fr_recipe_id
+entity_type: paragraph
+type: string
+settings:
+  max_length: 255
+  case_sensitive: false
+  is_ascii: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
