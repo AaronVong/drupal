@@ -99,7 +99,7 @@ final class FavoriteRecipe extends ContentEntityBase implements FavoriteRecipeIn
       ])
       ->setDisplayConfigurable('view', TRUE);
 
-    $fields['links'] = BaseFieldDefinition::create("link")
+    $fields['links'] = BaseFieldDefinition::create("string")
       ->setLabel("Favorite Recipe Links")
       ->setDisplayOptions('form', [
         'label' => 'above',

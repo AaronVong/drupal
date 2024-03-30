@@ -8,3 +8,4 @@ dependencies:
   - "drupal:user"
   - "drupal:link"
   - "simple_oauth:simple_oauth"
+  - "paragraphs:paragraphs"

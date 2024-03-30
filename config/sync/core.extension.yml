@@ -26,6 +26,7 @@ module:
   dblog: 0
   dynamic_page_cache: 0
   editor: 0
+  entity_reference_revisions: 0
   field: 0
   field_ui: 0
   file: 0
@@ -50,9 +51,9 @@ module:
   node: 0
   options: 0
   page_cache: 0
+  paragraphs_type_permissions: 0
   path: 0
   path_alias: 0
-  recipe_finder: 0
   rest: 0
   restui: 0
   search: 0
@@ -68,6 +69,7 @@ module:
   views_ui: 0
   workflows: 0
   views: 10
+  paragraphs: 11
   standard: 1000
 theme:
   olivero: 0
