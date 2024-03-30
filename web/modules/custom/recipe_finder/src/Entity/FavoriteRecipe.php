@@ -112,21 +112,6 @@ final class FavoriteRecipe extends ContentEntityBase implements FavoriteRecipeIn
       ])
       ->setCardinality(FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED);
 
-    $fields['belong_to_user'] = BaseFieldDefinition::create('entity_reference')
-      ->setLabel(t('Belong to user'))
-      ->setSetting('target_type', 'user')
-      ->setDisplayOptions('form', [
-        'type' => 'entity_reference_autocomplete',
-        'settings' => [
-          'match_operator' => 'CONTAINS',
-          'size' => 60,
-          'placeholder' => '',
-        ],
-        'weight' => 15,
-      ])
-      ->setDisplayConfigurable('form', TRUE)
-      ->setDisplayConfigurable('view', TRUE);
-
     $fields['status'] = BaseFieldDefinition::create('boolean')
       ->setLabel(t('Status'))
       ->setDefaultValue(TRUE)
