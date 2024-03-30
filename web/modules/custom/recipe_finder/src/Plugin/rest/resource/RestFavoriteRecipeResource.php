@@ -73,17 +73,17 @@ class RestFavoriteRecipeResource extends ResourceBase {
   function normalizerFavoriteRecipe(FavoriteRecipeInterface $item): array {
     $label = $item->label();
     $uid = $this->requester->id();
-    $uid = 1;
     $paragraphs = $item->get("links")->referencedEntities();
     $links = [];
     foreach ($paragraphs as $paragraph) {
       $id = $paragraph->get("field_p_fr_recipe_id")->getString();
       $name = $paragraph->get("field_p_fr_recipe_name")->getString();
-      $image_link = $paragraph->get("field_p_fr_recipe_image")->getValue();
+      $image_link = current($paragraph->get("field_p_fr_recipe_image")
+        ->getValue());
       $links[] = [
         'id' => $id,
         'name' => $name,
-        'image' => $image_link,
+        'image' => $image_link === FALSE ? NULL : $image_link,
       ];
     }
     return [
@@ -98,8 +98,11 @@ class RestFavoriteRecipeResource extends ResourceBase {
     $this->guard();
     $raw_data = $request->getContent();
     $body = json_decode($raw_data, TRUE);
+    if (empty($body['id']) || empty($body['name'])) {
+      return new ModifiedResourceResponse(NULL, 400);
+    }
     $favorite_recipe = $this->getCurrentUserFavoriteRecipe();
-    if (!empty($this->isRecipeExist($body['id']))) {
+    if (!empty($this->isRecipeExist([$body['id']]))) {
       return new ModifiedResourceResponse($this->normalizerFavoriteRecipe($favorite_recipe), 200);
     }
     $uid = $this->requester->id();
@@ -115,7 +118,7 @@ class RestFavoriteRecipeResource extends ResourceBase {
     }
     else {
       $favorite_recipe = FavoriteRecipe::create([
-        'title' => "Favorite recipe of " . $this->requester->getAccountName(),
+        'label' => "Favorite recipe of " . $this->requester->getAccountName(),
         'links' => $paragraph,
         'author' => $uid,
       ]);
@@ -128,40 +131,43 @@ class RestFavoriteRecipeResource extends ResourceBase {
   public function delete(Request $request): ModifiedResourceResponse {
     $this->guard();
     $raw_data = $request->getContent();
-    $body = json_decode($raw_data);
+    $body = json_decode($raw_data, TRUE);
+    if (empty($body['id'])) {
+      return new ModifiedResourceResponse(NULL, 400);
+    }
     $favorite_recipe = $this->getCurrentUserFavoriteRecipe();
     if ($favorite_recipe) {
-      $links = $favorite_recipe->get('links')->getValue();
-      $uri_columns = array_column($links, 'uri');
-      if ($index = array_search($body->uri, $uri_columns) !== FALSE) {
-        unset($links[$index]);
-        $favorite_recipe->set('links', $links);
-        $favorite_recipe->save();
+      $recipes = $this->isRecipeExist($body['id'], TRUE);
+      foreach ($recipes as $recipe) {
+        Paragraph::load($recipe->paragraph_id)?->delete();
       }
+      $favorite_recipe->save();
       return new ModifiedResourceResponse($this->normalizerFavoriteRecipe($favorite_recipe), 200);
     }
     return new ModifiedResourceResponse(NULL, 400);
   }
 
-  protected function isRecipeExist($recipe_id): array {
+  protected function isRecipeExist(array $recipe_id, bool $get_all = FALSE): array|bool|object {
     $uid = $this->requester->id();
     $database = \Drupal::database();
     $query = $database->select("favorite_recipe", "fr")
       ->where("fr.uid = :uid", [':uid' => $uid])
       ->condition('fr.status', '1')
       ->where("pifd.type = 'favorite_recipe'")
-      ->where("p_fpfri.field_p_fr_recipe_id_value = :recipe_id", [':recipe_id' => $recipe_id]);
+      ->where("p_fpfri.field_p_fr_recipe_id_value IN (:recipe_id[])", [':recipe_id[]' => $recipe_id]);
     $query->addField('p_fpfri', 'field_p_fr_recipe_id_value', 'recipe_id');
+    $query->addField('pifd', 'id', 'paragraph_id');
     $query->leftJoin("paragraphs_item_field_data", "pifd", "pifd.parent_id = fr.id");
     $query->leftJoin("paragraph__field_p_fr_recipe_id", "p_fpfri", 'pifd.id = p_fpfri.entity_id');
-    $records = $query->execute()->fetchAll();
-    return $records;
+    return $get_all ? $query->execute()->fetchAll() : $query->execute()
+      ->fetch();
   }
 
   protected function guard(): void {
     $roles = $this->requester->getRoles();
-    if (!in_array('recipe_user', $roles)) {
+    if (!in_array('authenticated', $roles)) {
       throw new AccessDeniedHttpException("Access denied");
     }
   }
+
 }
