@@ -4,11 +4,13 @@ status: true
 dependencies:
   config:
     - filter.format.restricted_html
+    - rest.resource.rest_favorite_recipe_resource
   module:
     - comment
     - contact
     - filter
     - media
+    - rest
     - search
     - system
 _core:
@@ -21,6 +23,9 @@ permissions:
   - 'access comments'
   - 'access content'
   - 'access site-wide contact form'
+  - 'restful delete rest_favorite_recipe_resource'
+  - 'restful get rest_favorite_recipe_resource'
+  - 'restful post rest_favorite_recipe_resource'
   - 'search content'
   - 'use text format restricted_html'
   - 'view media'

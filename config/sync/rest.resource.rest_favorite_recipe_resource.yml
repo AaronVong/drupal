@@ -1,0 +1,22 @@
+uuid: 127d70a5-68ed-4bdf-85fe-019ce524a8dc
+langcode: en
+status: true
+dependencies:
+  module:
+    - recipe_finder
+    - serialization
+    - simple_oauth
+    - user
+id: rest_favorite_recipe_resource
+plugin_id: rest_favorite_recipe_resource
+granularity: resource
+configuration:
+  methods:
+    - GET
+    - POST
+    - DELETE
+  formats:
+    - json
+  authentication:
+    - oauth2
+    - cookie
