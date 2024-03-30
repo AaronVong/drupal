@@ -1,0 +1,44 @@
+uuid: bf5b2eb0-65fd-4def-a072-8979cbf4cd61
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.favorite_recipe.field_p_fr_recipe_id
+    - field.field.paragraph.favorite_recipe.field_p_fr_recipe_image
+    - field.field.paragraph.favorite_recipe.field_p_fr_recipe_name
+    - paragraphs.paragraphs_type.favorite_recipe
+  module:
+    - link
+    - recipe_finder
+id: paragraph.favorite_recipe.default
+targetEntityType: paragraph
+bundle: favorite_recipe
+mode: default
+content:
+  field_p_fr_recipe_id:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_p_fr_recipe_image:
+    type: link_default
+    weight: 2
+    region: content
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+  field_p_fr_recipe_name:
+    type: string_textfield
+    weight: 1
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

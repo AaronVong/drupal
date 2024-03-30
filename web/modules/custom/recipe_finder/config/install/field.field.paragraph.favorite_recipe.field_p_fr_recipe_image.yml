@@ -1,0 +1,24 @@
+uuid: 96be1267-6456-4ba3-b6da-be4bb9bed04c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_p_fr_recipe_image
+    - paragraphs.paragraphs_type.favorite_recipe
+  module:
+    - link
+    - recipe_finder
+id: paragraph.favorite_recipe.field_p_fr_recipe_image
+field_name: field_p_fr_recipe_image
+entity_type: paragraph
+bundle: favorite_recipe
+label: 'Recipe Image'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  title: 1
+  link_type: 16
+field_type: link

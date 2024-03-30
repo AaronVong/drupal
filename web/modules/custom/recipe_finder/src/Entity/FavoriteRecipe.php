@@ -99,14 +99,17 @@ final class FavoriteRecipe extends ContentEntityBase implements FavoriteRecipeIn
       ])
       ->setDisplayConfigurable('view', TRUE);
 
-    $fields['links'] = BaseFieldDefinition::create("string")
+    $fields['links'] = BaseFieldDefinition::create("entity_reference_revisions")
+      ->setSetting('target_type', 'paragraph')
+      ->setTargetBundle('favorite_recipe')
       ->setLabel("Favorite Recipe Links")
+      ->setDisplayConfigurable('view', TRUE)
+      ->setDisplayConfigurable('form', TRUE)
       ->setDisplayOptions('form', [
         'label' => 'above',
+        'type' => 'entity_reference_paragraphs',
         'weight' => -5,
-        'type' => 'link',
       ])
-      ->setSettings(['link_type' => LinkItemInterface::LINK_GENERIC, 'title' => DRUPAL_OPTIONAL])
       ->setCardinality(FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED);
 
     $fields['belong_to_user'] = BaseFieldDefinition::create('entity_reference')

@@ -1,0 +1,13 @@
+uuid: 24796ed9-13e4-4bf8-a2a5-a17df75e078a
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - recipe_finder
+id: favorite_recipe
+label: 'Favorite Recipe'
+icon_uuid: null
+icon_default: null
+description: ''
+behavior_plugins: {  }
