@@ -1,0 +1,21 @@
+uuid: 04287012-2e20-4cc0-920d-663fd8c13788
+langcode: en
+status: true
+dependencies:
+  module:
+    - user
+  enforced:
+    module:
+      - custom_oauth2
+id: user.field_u_otp_verified
+field_name: field_u_otp_verified
+entity_type: user
+type: boolean
+settings: {  }
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
