@@ -13,7 +13,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * @Oauth2Grant(
- *   id = "ge_password",
+ *   id = "co2_password",
  *   label = @Translation("Good Evening Password Oauth 2 Grant")
  * )
  */
@@ -61,7 +61,7 @@ class Co2Password extends Oauth2GrantBase {
   }
 
   public function getGrantType() {
-    $grant = new GePasswordGrant($this->userRepository, $this->refreshTokenRepository);
+    $grant = new Co2PasswordGrant($this->userRepository, $this->refreshTokenRepository);
     $settings = $this->configFactory->get('simple_oauth.settings');
     $grant->setRefreshTokenTTL(new \DateInterval(sprintf('PT%dS', $settings->get('refresh_token_expiration'))));
     return $grant;

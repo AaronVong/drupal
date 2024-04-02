@@ -49,7 +49,7 @@ class Co2PasswordGrant extends PasswordGrant {
    * @inheritdoc
    */
   public function getIdentifier() {
-    return "ge_password";
+    return "co2_password";
   }
 
   /**

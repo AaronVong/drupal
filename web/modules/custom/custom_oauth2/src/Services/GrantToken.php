@@ -75,7 +75,7 @@ class GrantToken {
    * @throws \League\OAuth2\Server\Exception\UniqueTokenIdentifierConstraintViolationException
    */
   public function grantPasswordAccount(User $account, $client_id, $client_secret) {
-    $plugin = $this->grantManager->createInstance('ge_password');
+    $plugin = $this->grantManager->createInstance('co2_password');
     /** @var \Drupal\custom_oauth2\Grant\Co2PasswordGrant $grant */
     $grant = $plugin->getGrantType();
     $consumer_storage = $this->entityTypeManager->getStorage('consumer');
@@ -87,7 +87,7 @@ class GrantToken {
       throw OAuthServerException::serverError('Client could not be found.');
     }
     $client_drupal_entity = reset($client_drupal_entities);
-    $auth_server = $this->grantManager->getAuthorizationServer('ge_password', $client_drupal_entity);
+    $auth_server = $this->grantManager->getAuthorizationServer('co2_password', $client_drupal_entity);
     $auth_server->enableGrantType($grant);
 
     $bearer_response = $grant->grantAccessTokenForAccount($account, $client_id, $client_secret, $this->bearerTokenResponse);
