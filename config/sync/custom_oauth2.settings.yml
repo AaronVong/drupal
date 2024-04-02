@@ -1,8 +1,10 @@
 _core:
-  default_config_hash: _0XaAGLb8RVUmQKi4xM8ns4pYSKxbnkV3H-sRRdXptU
+  default_config_hash: '-mNfE18ePK8tVEijjc2BrWbJN-VAnZ9FnY5Do-9OiXs'
 resend_otp_limitation: '3'
 otp_expired_time: '300'
 resend_time_gap: '180'
+otp_sandbox: 0
+roles_assign: {  }
 dependencies:
   enforced:
     module:
