@@ -6,6 +6,7 @@ dependencies:
     - field.storage.user.field_u_first_name
   module:
     - user
+    - custom_oauth2
 id: user.user.field_u_first_name
 field_name: field_u_first_name
 entity_type: user
