@@ -1,0 +1,11 @@
+uuid: 4f5fcb86-f807-4563-b884-efdbc1e1037d
+langcode: en
+status: true
+dependencies:
+  module:
+    - recipe_finder
+id: favorite_recipe.token
+label: Token
+description: ''
+targetEntityType: favorite_recipe
+cache: true
