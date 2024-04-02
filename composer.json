@@ -30,8 +30,11 @@
         "drupal/menu_item_fields": "^1.10",
         "drupal/menu_item_role_access": "^2.1",
         "drupal/paragraphs": "^1.17",
+        "drupal/password_policy": "^4.0",
         "drupal/restui": "^1.21",
         "drupal/simple_oauth": "^5.2",
+        "drupal/smtp": "^1.2",
+        "drupal/token": "^1.13",
         "drush/drush": "^12.4"
     },
     "conflict": {

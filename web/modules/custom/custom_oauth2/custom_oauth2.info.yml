@@ -1,0 +1,10 @@
+name: Customize Oatuh2 flow
+type: module
+core_version_requirement: ^10.2
+description: Customize Oauth2, with custom grant, and login flow
+package: Custom
+dependencies:
+  - simple_oauth:simple_oauth
+  - password_policy:password_policy
+  - smtp:smtp
+  - token:token

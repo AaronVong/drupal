@@ -22,6 +22,7 @@ module:
   content_moderation: 0
   contextual: 0
   custom_linkset: 0
+  custom_oauth2: 0
   datetime: 0
   dblog: 0
   dynamic_page_cache: 0
@@ -62,13 +63,16 @@ module:
   settings_tray: 0
   shortcut: 0
   simple_oauth: 0
+  smtp: 0
   system: 0
   taxonomy: 0
   text: 0
+  token: 0
   toolbar: 0
   user: 0
   views_ui: 0
   workflows: 0
+  password_policy: 10
   views: 10
   paragraphs: 11
   standard: 1000

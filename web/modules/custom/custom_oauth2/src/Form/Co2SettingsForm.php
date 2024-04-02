@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\goodevening_account\Form;
+namespace Drupal\custom_oauth2\Form;
 
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;

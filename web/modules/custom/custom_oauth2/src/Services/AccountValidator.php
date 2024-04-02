@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\goodevening_account\Services;
+namespace Drupal\custom_oauth2\Services;
 
 use Drupal\Core\Session\AccountProxyInterface;
 use Drupal\password_policy\PasswordPolicyValidator;

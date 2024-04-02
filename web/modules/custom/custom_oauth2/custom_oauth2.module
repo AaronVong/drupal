@@ -1,0 +1,137 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for custom_oauth2 module.
+ */
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter().
+ */
+function custom_oauth2_form_user_admin_settings_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  $site_config = \Drupal::config('system.site');
+  $mail_config = \Drupal::config('user.mail');
+
+  $email_token_help = t('Available variables are: [site:name], [site:url], [user:display-name], [user:account-name], [user:mail], [site:login-url], [site:url-brief], [user:edit-url], [user:one-time-login-url], [user:cancel-url].');
+  $form['email_pending_verify'] = [
+    '#type' => 'details',
+    '#title' => t('Welcome (awaiting user to verify)'),
+    '#open' => TRUE,
+    '#description' => t('Edit the email notifying the user to verify account.') . ' ' . $email_token_help,
+    '#group' => 'email'
+  ];
+  $form['email_pending_verify']['email_pending_verify_subject'] = [
+    '#type' => 'textfield',
+    '#title' => t('Subject'),
+    '#default_value' => $mail_config->get('email_pending_verify.subject'),
+    '#maxlength' => 180,
+  ];
+  $form['email_pending_verify']['email_pending_verify_body'] = [
+    '#type' => 'textarea',
+    '#title' => t('Body'),
+    '#default_value' => $mail_config->get('email_pending_verify.body'),
+    '#rows' => 8,
+  ];
+  $form['#submit'][] = 'custom_oauth2_email_pending_verify';
+}
+
+function custom_oauth2_email_pending_verify(&$form, &$form_state) {
+  $mail_config = \Drupal::configFactory()->getEditable('user.mail');
+
+  $mail_config->set('email_pending_verify.subject', $form_state->getValue('email_pending_verify_subject'))
+    ->save();
+  $mail_config->set('email_pending_verify.body', $form_state->getValue('email_pending_verify_body'))
+    ->save();
+}
+
+/**
+ * Implements hook_mail_alter().
+ */
+function custom_oauth2_mail_alter(&$message) {
+  if ($message["id"] == "custom_oauth2_email_pending_verify") {
+    $message["subject"] = $message["params"]["subject"];
+    $message["body"] = $message["params"]["body"];
+  }
+}
+
+/**
+ * declare custom tokens information
+ * Implements hook_token_info().
+ */
+function custom_oauth2_token_info() {
+  // token type
+  $types['otp_token_type'] = [
+    "name" => t('OTP token type'),
+    'description' => t('OTP token type'),
+  ];
+
+  $tokens['otp_code'] = [
+    'name' => t('OTP code token'),
+    'description' => t('OTP code token'),
+    'dynamic' => TRUE,
+  ];
+
+  return ['types' => $types, 'tokens' => ['otp' => $tokens]];
+}
+
+/**
+ * Implements hook_tokens().
+ */
+function custom_oauth2_tokens($type, $tokens, array $data, array $options, \Drupal\Core\Render\BubbleableMetadata $bubbleable_metadata) {
+  $replacements = [];
+  if ($type == 'otp_token_type') {
+    foreach ($tokens as $name => $original) {
+      switch ($name) {
+        case 'otp_code':
+          $replacements[$original] = $data[$name];
+          break;
+      }
+    }
+  }
+  return $replacements;
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_predelete().
+ */
+function custom_oauth2_user_predelete(\Drupal\Core\Entity\EntityInterface $entity) {
+  try {
+    // delete otp when deleting user
+    $query = \Drupal::database()->delete('custom_oauth2')->condition('uid', $entity->id());
+    $query->execute();
+  }
+  catch (\Exception $error) {
+    \Drupal::logger('php')->error($error->getMessage());
+  }
+
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function custom_oauth2_form_user_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  $form['actions']['reset_otp_count'] = [
+    '#value' => t('Reset OTP Count'),
+    '#type' => 'submit',
+    '#submit' => ['resetOtpCount'],
+  ];
+  return $form;
+}
+
+function resetOtpCount(array $form, \Drupal\Core\Form\FormStateInterface $form_state) {
+  /**
+   * @var \Drupal\user\Entity\User $user
+   */
+  $user = $form_state->getFormObject()->getEntity();
+  try {
+    \Drupal::service('custom_oauth2.account_verity')->reSendOtpToEmail($user, TRUE);
+    \Drupal::messenger()->addMessage('Resend limitation for user ' . $user->getDisplayName() . '(' . $user->id() . ')'. ' was reset and an otp email sent.');
+  }
+  catch(\Exception $error) {
+    \Drupal::logger('rest')->error($error->getMessage());
+  }
+}
+

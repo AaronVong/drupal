@@ -1,11 +1,11 @@
 <?php
 
-namespace Drupal\goodevening_account\Services;
+namespace Drupal\custom_oauth2\Services;
 
 use Drupal\Component\Render\PlainTextOutput;
 use Drupal\Core\Logger\LoggerChannelFactory;
 use Drupal\Core\Mail\MailManager;
-use Drupal\goodevening_account\AccountOtpTrait;
+use Drupal\custom_oauth2\AccountOtpTrait;
 use Drupal\user\UserInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
@@ -44,7 +44,7 @@ class AccountVerify {
     $email = $user->getEmail();
     $otp = $this->generateOTP();
     $variables = ['user' => $user, 'otp_code' => $otp];
-    $this->sendEmail($email, 'goodevening_account', 'email_pending_verify', $variables);
+    $this->sendEmail($email, 'custom_oauth2', 'email_pending_verify', $variables);
     $this->saveOtp($user, $otp);
   }
 
@@ -66,7 +66,7 @@ class AccountVerify {
     $time = time();
     $effected_rows = $this->updateOtp($user, $otp, $time, $reset);
     if (!empty($effected_rows)) {
-      $this->sendEmail($email, 'goodevening_account', 'email_pending_verify', $variables);
+      $this->sendEmail($email, 'custom_oauth2', 'email_pending_verify', $variables);
       return TRUE;
     }
     return FALSE;

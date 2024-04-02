@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\goodevening_account\Plugin\rest\resource;
+namespace Drupal\custom_oauth2\Plugin\rest\resource;
 
 use Drupal\Core\KeyValueStore\KeyValueFactoryInterface;
 use Drupal\rest\ModifiedResourceResponse;
@@ -15,7 +15,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  * Represents Rest Sign Up records as resources.
  *
  * @RestResource (
- *   id = "goodevening_account_rest_sign_up",
+ *   id = "custom_oauth2_rest_sign_up",
  *   label = @Translation("Rest Sign Up"),
  *   uri_paths = {
  *     "canonical" = "/api/user/{id}",
@@ -55,17 +55,17 @@ class RestSignUpResource extends ResourceBase {
   protected $storage;
 
   /**
-   * @var \Drupal\goodevening_account\Services\AccountValidator
+   * @var \Drupal\custom_oauth2\Services\AccountValidator
    */
   protected $account_validator;
 
   /**
-   * @var \Drupal\goodevening_helper\Services\GEHelper
+   * @var \Drupal\custom_oauth2\Services\Co2Ultilities
    */
-  protected $gehelper;
+  protected $co2Ultilities;
 
   /**
-   * @var \Drupal\goodevening_account\Services\AccountVerify
+   * @var \Drupal\custom_oauth2\Services\AccountVerify
    */
   protected $account_verify;
 
@@ -81,7 +81,7 @@ class RestSignUpResource extends ResourceBase {
     KeyValueFactoryInterface $keyValueFactory,
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition, $serializer_formats, $logger, $keyValueFactory);
-    $this->storage = $keyValueFactory->get('goodevening_account_rest_sign_up');
+    $this->storage = $keyValueFactory->get('custom_oauth2_rest_sign_up');
   }
 
   /**
@@ -96,9 +96,9 @@ class RestSignUpResource extends ResourceBase {
       $container->get('logger.factory')->get('rest'),
       $container->get('keyvalue')
     );
-    $instance->account_validator = $container->get('goodevening_account.account_validator');
-    $instance->gehelper = $container->get('goodevening_helper.gehelper');
-    $instance->account_verify = $container->get('goodevening_account.account_verity');
+    $instance->account_validator = $container->get('custom_oauth2.account_validator');
+    $instance->co2Ultilities = $container->get('custom_oauth2.co2Ultilities');
+    $instance->account_verify = $container->get('custom_oauth2.account_verity');
     return $instance;
   }
 
@@ -123,7 +123,7 @@ class RestSignUpResource extends ResourceBase {
       $new_account->set('field_u_first_name', $data['field_u_first_name']);
       $new_account->set('field_u_last_name', $data['field_u_last_name']);
       $violation_list = $new_account->validate();
-      $errors = $this->gehelper->getViolationMessages($violation_list);
+      $errors = $this->co2Ultilities->getViolationMessages($violation_list);
       if (!empty($errors)) {
         return new ModifiedResourceResponse(['message' => $errors], 400);
       }

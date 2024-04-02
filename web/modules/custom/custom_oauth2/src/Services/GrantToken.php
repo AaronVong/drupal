@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\goodevening_account\Services;
+namespace Drupal\custom_oauth2\Services;
 
 use Defuse\Crypto\Core;
 use Drupal\Core\Config\ConfigFactoryInterface;
@@ -76,7 +76,7 @@ class GrantToken {
    */
   public function grantPasswordAccount(User $account, $client_id, $client_secret) {
     $plugin = $this->grantManager->createInstance('ge_password');
-    /** @var \Drupal\goodevening_account\Grant\GePasswordGrant $grant */
+    /** @var \Drupal\custom_oauth2\Grant\Co2PasswordGrant $grant */
     $grant = $plugin->getGrantType();
     $consumer_storage = $this->entityTypeManager->getStorage('consumer');
     $client_drupal_entities = $consumer_storage

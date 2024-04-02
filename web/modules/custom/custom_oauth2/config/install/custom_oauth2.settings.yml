@@ -1,0 +1,7 @@
+resend_otp_limitation: '3'
+otp_expired_time: '300'
+resend_time_gap: '180'
+dependencies:
+  enforced:
+    module:
+      - custom_oauth2

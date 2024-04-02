@@ -114,3 +114,9 @@ status_canceled:
     Your account on [site:name] has been canceled.
 
     --  [site:name] team
+email_account_verify:
+  subject: 'Account [user:display-name] at [site:name] need to verify'
+  body: "Dear [user:field_u_first_name],\r\n\r\nThank you for registering at [site:name]. Your account [user:display-name] has been created and disabled. To activate it, please verify your account by enter the OTP bellow.\r\n\r\n[otp_token_type:otp_code]\r\n\r\n--  [site:name] team"
+email_pending_verify:
+  subject: 'Verify Your Email'
+  body: "Dear [user:field_u_first_name],\r\nThank you for registering at [site:name]. Your account [user:display-name] has been created and disabled. To activate it, please verify your account by enter the OTP bellow.\r\n\r\n[otp_token_type:otp_code]\r\n\r\n--  [site:name] team"

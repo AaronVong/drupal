@@ -883,11 +883,11 @@ if (file_exists($app_root . '/' . $site_path . '/settings.local.php')) {
 }
 $settings['config_sync_directory'] = '../config/sync';
 $databases['default']['default'] = array (
-  'database' => 'gutenberg',
+  'database' => 'drupal',
   'username' => 'admin',
   'password' => '123456',
   'prefix' => '',
-  'host' => 'gutenberg_db_service',
+  'host' => 'drupal_db_service',
   'port' => '3306',
   'isolation_level' => 'READ COMMITTED',
   'driver' => 'mysql',

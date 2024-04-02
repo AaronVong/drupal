@@ -1,0 +1,7 @@
+custom_oauth2.settings_form:
+  path: '/admin/config/system/custom-oauth2-settings'
+  defaults:
+    _title: 'Custom Oauth2 settings'
+    _form: 'Drupal\custom_oauth2\Form\Co2SettingsForm'
+  requirements:
+    _permission: 'administer custom_oauth2 configuration'

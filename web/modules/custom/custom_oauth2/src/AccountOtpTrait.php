@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\goodevening_account;
+namespace Drupal\custom_oauth2;
 
 use Drupal\user\UserInterface;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
@@ -20,14 +20,14 @@ trait AccountOtpTrait {
   protected function saveOtp(UserInterface $user, int $otp): void {
     $time = time();
     $query = \Drupal::database()
-      ->insert('goodevening_account')
+      ->insert('custom_oauth2')
       ->fields([
         'uid' => $user->id(),
         'otp_code' => $otp,
         'created' => $time,
-        'expired' => $time + (int) \Drupal::config('goodevening_account.settings')
+        'expired' => $time + (int) \Drupal::config('custom_oauth2.settings')
             ->get('otp_expired_time'),
-        'next_send' => $time + \Drupal::config('goodevening_account.settings')
+        'next_send' => $time + \Drupal::config('custom_oauth2.settings')
             ->get('resend_time_gap'),
       ]);
     $query->execute();
@@ -42,10 +42,10 @@ trait AccountOtpTrait {
     }
 
     $connect = \Drupal::database();
-    $query = $connect->select('goodevening_account')
+    $query = $connect->select('custom_oauth2')
       ->condition('uid', $user->id())
       ->condition('otp_code', $otp);
-    $query->fields('goodevening_account', [
+    $query->fields('custom_oauth2', [
       'uid',
       'otp_code',
       'status',
@@ -73,19 +73,19 @@ trait AccountOtpTrait {
 
   protected function updateOtp(UserInterface $user, int $otp, int $current_time, bool $reset = FALSE): int|null {
     $query = \Drupal::database()
-      ->update('goodevening_account')
+      ->update('custom_oauth2')
       ->condition('uid', $user->id());
     $fields = [
       'otp_code' => $otp,
       'created' => $current_time,
       'status' => '1',
-      'expired' => $current_time + (int) \Drupal::config('goodevening_account.settings')
+      'expired' => $current_time + (int) \Drupal::config('custom_oauth2.settings')
           ->get('otp_expired_time'),
-      'next_send' => $current_time + \Drupal::config('goodevening_account.settings')
+      'next_send' => $current_time + \Drupal::config('custom_oauth2.settings')
           ->get('resend_time_gap'),
     ];
     if (!$reset) {
-      $query = $query->condition('resend_counter', \Drupal::config('goodevening_account.settings')
+      $query = $query->condition('resend_counter', \Drupal::config('custom_oauth2.settings')
         ->get('resend_otp_limitation'), '<')
         ->expression('resend_counter', 'resend_counter + 1')
         ->condition('next_send', $current_time, '<');

@@ -1,10 +1,10 @@
 <?php
 
-namespace Drupal\goodevening_account\Plugin\Oauth2Grant;
+namespace Drupal\custom_oauth2\Plugin\Oauth2Grant;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
-use Drupal\goodevening_account\Grant\GePasswordGrant;
-use Drupal\goodevening_account\Repositories\GeUserRepositories;
+use Drupal\custom_oauth2\Grant\Co2PasswordGrant;
+use Drupal\custom_oauth2\Repositories\Co2UserRepositories;
 use Drupal\simple_oauth\Plugin\Oauth2GrantBase;
 use League\OAuth2\Server\Grant\PasswordGrant;
 use League\OAuth2\Server\Repositories\RefreshTokenRepositoryInterface;
@@ -17,10 +17,10 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *   label = @Translation("Good Evening Password Oauth 2 Grant")
  * )
  */
-class GePassword extends Oauth2GrantBase {
+class Co2Password extends Oauth2GrantBase {
 
   /**
-   * @var \Drupal\goodevening_account\Repositories\GeUserRepositories
+   * @var \Drupal\custom_oauth2\Repositories\Co2UserRepositories
    */
   protected $userRepository;
 
@@ -39,7 +39,7 @@ class GePassword extends Oauth2GrantBase {
   /**
    * Class constructor.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, GeUserRepositories $user_repository, RefreshTokenRepositoryInterface $refresh_token_repository, ConfigFactoryInterface $config_factory) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, Co2UserRepositories $user_repository, RefreshTokenRepositoryInterface $refresh_token_repository, ConfigFactoryInterface $config_factory) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->userRepository = $user_repository;
     $this->refreshTokenRepository = $refresh_token_repository;
@@ -54,7 +54,7 @@ class GePassword extends Oauth2GrantBase {
       $configuration,
       $plugin_id,
       $plugin_definition,
-      $container->get('goodevening_account.ge_user_repositories'),
+      $container->get('custom_oauth2.ge_user_repositories'),
       $container->get('simple_oauth.repositories.refresh_token'),
       $container->get('config.factory')
     );

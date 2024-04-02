@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\goodevening_account\Plugin\rest\resource;
+namespace Drupal\custom_oauth2\Plugin\rest\resource;
 
 use Drupal\Core\KeyValueStore\KeyValueFactoryInterface;
 use Drupal\rest\ModifiedResourceResponse;
@@ -14,7 +14,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * Represents Rest OTP as resources.
  *
  * @RestResource (
- *   id = "goodevening_account_rest_otp",
+ *   id = "custom_oauth2_rest_otp",
  *   label = @Translation("Rest OTP"),
  *   uri_paths = {
  *     "create" = "/api/otp/{action}"
@@ -53,22 +53,22 @@ class RestOtp extends ResourceBase {
   protected $storage;
 
   /**
-   * @var \Drupal\goodevening_account\Services\AccountValidator
+   * @var \Drupal\custom_oauth2\Services\AccountValidator
    */
   protected $account_validator;
 
   /**
-   * @var \Drupal\goodevening_helper\Services\GEHelper
+   * @var \Drupal\custom_oauth2\Services\Co2Ultilities
    */
-  protected $gehelper;
+  protected $co2Ultilities;
 
   /**
-   * @var \Drupal\goodevening_account\Services\AccountVerify
+   * @var \Drupal\custom_oauth2\Services\AccountVerify
    */
   protected $account_verify;
 
   /**
-   * @var \Drupal\goodevening_account\Services\GrantToken
+   * @var \Drupal\custom_oauth2\Services\GrantToken
    */
   protected $grant_token;
 
@@ -84,7 +84,7 @@ class RestOtp extends ResourceBase {
     KeyValueFactoryInterface $keyValueFactory,
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition, $serializer_formats, $logger, $keyValueFactory);
-    $this->storage = $keyValueFactory->get('goodevening_account_rest_sign_up');
+    $this->storage = $keyValueFactory->get('custom_oauth2_rest_sign_up');
   }
 
   /**
@@ -99,10 +99,10 @@ class RestOtp extends ResourceBase {
       $container->get('logger.factory')->get('rest'),
       $container->get('keyvalue')
     );
-    $instance->account_validator = $container->get('goodevening_account.account_validator');
-    $instance->gehelper = $container->get('goodevening_helper.gehelper');
-    $instance->account_verify = $container->get('goodevening_account.account_verity');
-    $instance->grant_token = $container->get('goodevening_account.grant_token');
+    $instance->account_validator = $container->get('custom_oauth2.account_validator');
+    $instance->co2Ultilities = $container->get('custom_oauth2.co2ultilities');
+    $instance->account_verify = $container->get('custom_oauth2.account_verity');
+    $instance->grant_token = $container->get('custom_oauth2.grant_token');
     return $instance;
   }
 

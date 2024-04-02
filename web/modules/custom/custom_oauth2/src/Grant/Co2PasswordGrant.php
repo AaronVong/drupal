@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\goodevening_account\Grant;
+namespace Drupal\custom_oauth2\Grant;
 
 use DateInterval;
 use Drupal\Core\Session\AccountInterface;
@@ -16,14 +16,14 @@ use Psr\Http\Message\ServerRequestInterface;
 /**
  * Ge Password grant type class
  */
-class GePasswordGrant extends PasswordGrant {
+class Co2PasswordGrant extends PasswordGrant {
 
   /**
    * @inheritdoc
    */
   public function validateUser(ServerRequestInterface $request, ClientEntityInterface $client) {
     $oauth_user = parent::validateUser($request, $client);
-    $account_validator = \Drupal::service('goodevening_account.account_validator');
+    $account_validator = \Drupal::service('custom_oauth2.account_validator');
     $user = User::load($oauth_user->getIdentifier());
 
 

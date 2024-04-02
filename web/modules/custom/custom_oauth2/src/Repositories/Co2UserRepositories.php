@@ -1,13 +1,13 @@
 <?php
 
-namespace Drupal\goodevening_account\Repositories;
+namespace Drupal\custom_oauth2\Repositories;
 
 use Drupal\simple_oauth\Entities\UserEntity;
 use Drupal\user\UserAuthInterface;
 use League\OAuth2\Server\Entities\ClientEntityInterface;
 use League\OAuth2\Server\Repositories\UserRepositoryInterface;
 
-class GeUserRepositories implements UserRepositoryInterface {
+class Co2UserRepositories implements UserRepositoryInterface {
 
   /**
    * @var \Drupal\user\UserAuthInterface

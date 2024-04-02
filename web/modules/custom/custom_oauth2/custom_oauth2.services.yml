@@ -1,0 +1,16 @@
+services:
+  custom_oauth2.account_validator:
+    class: Drupal\custom_oauth2\Services\AccountValidator
+    arguments: ['@current_user', '@password_policy.validator']
+  custom_oauth2.account_verity:
+    class: Drupal\custom_oauth2\Services\AccountVerify
+    arguments: ['@logger.factory', '@plugin.manager.mail']
+  custom_oauth2.ge_user_repositories:
+    class: Drupal\custom_oauth2\Repositories\GeUserRepositories
+    arguments: ['@user.auth']
+  custom_oauth2.grant_token:
+    class: Drupal\custom_oauth2\Services\GrantToken
+    arguments: [ '@plugin.manager.oauth2_grant.processor', '@entity_type.manager', '@simple_oauth.server.response_type', '@config.factory' ]
+  custom_oauth2.co2ultilities:
+    class: Drupal\custom_oauth2\Services\Co2Ultilities
+    arguments: ['@current_user']
