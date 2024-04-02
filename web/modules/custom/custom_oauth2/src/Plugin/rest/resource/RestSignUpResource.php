@@ -97,7 +97,7 @@ class RestSignUpResource extends ResourceBase {
       $container->get('keyvalue')
     );
     $instance->account_validator = $container->get('custom_oauth2.account_validator');
-    $instance->co2Ultilities = $container->get('custom_oauth2.co2Ultilities');
+    $instance->co2Ultilities = $container->get('custom_oauth2.co2ultilities');
     $instance->account_verify = $container->get('custom_oauth2.account_verity');
     return $instance;
   }
