@@ -6,9 +6,6 @@ dependencies:
     - field.field.user.user.field_last_password_reset
     - field.field.user.user.field_password_expiration
     - field.field.user.user.field_pending_expire_sent
-    - field.field.user.user.field_u_first_name
-    - field.field.user.user.field_u_last_name
-    - field.field.user.user.field_u_otp_verified
     - field.field.user.user.user_picture
     - image.style.thumbnail
   module:
@@ -37,29 +34,6 @@ content:
   field_password_expiration:
     type: boolean_checkbox
     weight: 3
-    region: content
-    settings:
-      display_label: true
-    third_party_settings: {  }
-  field_u_first_name:
-    type: string_textfield
-    weight: 7
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_u_last_name:
-    type: string_textfield
-    weight: 8
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_u_otp_verified:
-    type: boolean_checkbox
-    weight: 9
     region: content
     settings:
       display_label: true

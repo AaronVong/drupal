@@ -4,14 +4,12 @@ status: true
 dependencies:
   config:
     - filter.format.basic_html
-    - rest.resource.custom_oauth2_rest_otp
   module:
     - comment
     - contact
     - file
     - filter
     - media
-    - rest
     - search
     - shortcut
     - system
@@ -28,7 +26,6 @@ permissions:
   - 'access site-wide contact form'
   - 'delete own files'
   - 'post comments'
-  - 'restful post custom_oauth2_rest_otp'
   - 'search content'
   - 'skip comment approval'
   - 'use text format basic_html'
