@@ -1,0 +1,26 @@
+uuid: c2670d34-99b5-43cf-b668-d0b3565e29b4
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_u_otp_verified
+  module:
+    - user
+_core:
+  default_config_hash: Dv1hAhaZ3EYfz5pSiiEnotWzuvNkvpI7EcJWIYjIcVQ
+id: user.user.field_u_otp_verified
+field_name: field_u_otp_verified
+entity_type: user
+bundle: user
+label: 'OTP verified'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'Yes'
+  off_label: 'No'
+field_type: boolean
