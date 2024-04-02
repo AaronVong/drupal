@@ -1,6 +1,8 @@
-resend_otp_limitation: '3'
-otp_expired_time: '300'
-resend_time_gap: '180'
+resend_otp_limitation: "3"
+otp_expired_time: "300"
+resend_time_gap: "180"
+otp_sandbox: 0
+roles_assign: {}
 dependencies:
   enforced:
     module:

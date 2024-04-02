@@ -4,6 +4,7 @@ namespace Drupal\custom_oauth2\Form;
 
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\user\Entity\Role;
 
 /**
  * Configure custom_oauth2 settings for this site.
@@ -46,6 +47,38 @@ class Co2SettingsForm extends ConfigFormBase {
       '#default_value' => $this->config('custom_oauth2.settings')
         ->get('resend_time_gap'),
     ];
+
+    $roles = Role::loadMultiple();
+
+    $role_options = [];
+    $exlude_id = ['authenticated', 'administrator' , 'anonymous'];
+    foreach($roles as $role_id => $role) {
+      /**
+       * @var Role $role
+       */
+      if (!in_array($role_id, $exlude_id)) {
+      $role_options[$role_id] = $role->label();
+      }
+    }
+
+    $default_roles = $this->config('custom_oauth2.settings')
+      ->get('roles_assign');
+    $form['roles_assign'] = [
+      '#type' => "checkboxes",
+      '#title' => $this->t('Role assign'),
+      '#options' => $role_options,
+      '#default_value' => $default_roles ?? [],
+      '#description' => $this->t('These will roles will be assign when new user create with sign up API, Authenticated always assigned by default'),
+      '#required' => true
+    ];
+
+    $form['otp_sandbox'] = [
+      '#type' => "checkbox",
+      '#title' => $this->t('Enable OTP sandbox'),
+      '#default_value' => $this->config('custom_oauth2.settings')
+        ->get('otp_sandbox'),
+    ];
+
     return parent::buildForm($form, $form_state);
   }
 
@@ -77,6 +110,8 @@ class Co2SettingsForm extends ConfigFormBase {
     $resend_otp_limitation = $form_state->getValue('resend_otp_limitation');
     $expired_time = $form_state->getValue('otp_expired_time');
     $resend_time_gap = $form_state->getValue('resend_time_gap');
+    $roles = $form_state->getValue('roles_assign');
+    $sandbox = $form_state->getValue('otp_sandbox');
     $this->config('custom_oauth2.settings')
       ->set('resend_otp_limitation', $resend_otp_limitation)
       ->save();
@@ -85,6 +120,12 @@ class Co2SettingsForm extends ConfigFormBase {
       ->save();
     $this->config('custom_oauth2.settings')
       ->set('resend_time_gap', $resend_time_gap)
+      ->save();
+    $this->config('custom_oauth2.settings')
+      ->set('otp_sandbox', $sandbox)
+      ->save();
+    $this->config('custom_oauth2.settings')
+      ->set('roles_assign', $roles)
       ->save();
     parent::submitForm($form, $form_state);
   }
