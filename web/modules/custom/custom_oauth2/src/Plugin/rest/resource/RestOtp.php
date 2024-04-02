@@ -121,7 +121,11 @@ class RestOtp extends ResourceBase {
     }
 
     try {
-      $user = User::load($data['uid']);
+      $users = \Drupal::entityTypeManager()->getStorage('user')->loadByProperties(['mail' => $data['email']]);
+      /**
+       * @var User $user
+       */
+      $user = current($users);
       if (empty($user)) {
         return new ModifiedResourceResponse(['message' => "User does not exists."], 400);
       }
@@ -130,6 +134,7 @@ class RestOtp extends ResourceBase {
         return $this->verifyOtp($user, $data);
       }
       elseif ($action === "resend") {
+        $user =
         $is_success = $this->account_verify->reSendOtpToEmail($user);
         if (!$is_success) {
           return new ModifiedResourceResponse(['message' => "Failed to re-send OTP, account is already activate or reach re-send limitation, please contact administrator for support."], 400);
@@ -155,14 +160,6 @@ class RestOtp extends ResourceBase {
       $route->setRequirement('id', '\d+');
     }
     return $route;
-  }
-
-  /**
-   * Returns next available ID.
-   */
-  private function getNextId() {
-    $ids = \array_keys($this->storage->getAll());
-    return count($ids) > 0 ? max($ids) + 1 : 1;
   }
 
   private function verifyOtp(User $user, array $data): ModifiedResourceResponse {

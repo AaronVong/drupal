@@ -18,7 +18,6 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  *   id = "custom_oauth2_rest_sign_up",
  *   label = @Translation("Rest Sign Up"),
  *   uri_paths = {
- *     "canonical" = "/api/user/{id}",
  *     "create" = "/api/user/sign-up"
  *   }
  * )
@@ -122,6 +121,16 @@ class RestSignUpResource extends ResourceBase {
       $new_account->setEmail($data['mail']);
       $new_account->set('field_u_first_name', $data['field_u_first_name']);
       $new_account->set('field_u_last_name', $data['field_u_last_name']);
+      $custom_oauth2_settings = \Drupal::config('custom_oauth2.settings');
+      $roles = $custom_oauth2_settings->get('roles_assign');
+      // Assign roles that been config in form
+      if (!empty($roles)) {
+        foreach ($roles as $key => $value) {
+          if (!empty($value)) {
+            $new_account->addRole($key);
+          }
+        }
+      }
       $violation_list = $new_account->validate();
       $errors = $this->co2Ultilities->getViolationMessages($violation_list);
       if (!empty($errors)) {
@@ -139,70 +148,15 @@ class RestSignUpResource extends ResourceBase {
 
       $new_account->block();
       $new_account->save();
-      $this->account_verify->sendOtpToEmail($new_account);
+      $is_sandbox_enabled = $custom_oauth2_settings->get('otp_sandbox');
+      if (empty($is_sandbox_enabled)) {
+        $this->account_verify->sendOtpToEmail($new_account);
+      }
       return new ModifiedResourceResponse(['message' => 'Sign up successful, an email with OTP has been sent', 'uid' => $new_account->id()], 200);
     } catch (\Exception $exception) {
       $this->logger->error($exception->getMessage());
       return new ModifiedResourceResponse(['message' => 'Failed to sign up'], 500);
     }
-  }
-
-  /**
-   * Responds to GET requests.
-   *
-   * @param int $id
-   *   The ID of the record.
-   *
-   * @return \Drupal\rest\ResourceResponse
-   *   The response containing the record.
-   */
-  public function get($id) {
-    if (!$this->storage->has($id)) {
-      throw new NotFoundHttpException();
-    }
-    $resource = $this->storage->get($id);
-    return new ResourceResponse($resource);
-  }
-
-  /**
-   * Responds to PATCH requests.
-   *
-   * @param int $id
-   *   The ID of the record.
-   * @param array $data
-   *   Data to write into the storage.
-   *
-   * @return \Drupal\rest\ModifiedResourceResponse
-   *   The HTTP response object.
-   */
-  public function patch($id, array $data) {
-    if (!$this->storage->has($id)) {
-      throw new NotFoundHttpException();
-    }
-    $stored_data = $this->storage->get($id);
-    $data += $stored_data;
-    $this->storage->set($id, $data);
-    $this->logger->notice('The rest sign up record @id has been updated.');
-    return new ModifiedResourceResponse($data, 200);
-  }
-
-  /**
-   * Responds to DELETE requests.
-   *
-   * @param int $id
-   *   The ID of the record.
-   *
-   * @return \Drupal\rest\ModifiedResourceResponse
-   *   The HTTP response object.
-   */
-  public function delete($id) {
-    if (!$this->storage->has($id)) {
-      throw new NotFoundHttpException();
-    }
-    $this->storage->delete($id);
-    $this->logger->notice('The rest sign up record @id has been deleted.', ['@id' => $id]);
-    // Deleted responses have an empty body.
-    return new ModifiedResourceResponse(NULL, 204);
   }
 
   /**
@@ -215,14 +169,6 @@ class RestSignUpResource extends ResourceBase {
       $route->setRequirement('id', '\d+');
     }
     return $route;
-  }
-
-  /**
-   * Returns next available ID.
-   */
-  private function getNextId() {
-    $ids = \array_keys($this->storage->getAll());
-    return count($ids) > 0 ? max($ids) + 1 : 1;
   }
 
 }

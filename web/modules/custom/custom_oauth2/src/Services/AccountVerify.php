@@ -57,6 +57,10 @@ class AccountVerify {
    * @return bool
    */
   public function reSendOtpToEmail(UserInterface $user, bool $reset = FALSE): bool {
+    $is_sandbox_enabled = \Drupal::config('custom_oauth2.settings')->get('otp_sandbox');
+    if ($is_sandbox_enabled) {
+      return TRUE;
+    }
     $email = $user->getEmail();
     if ($user->isActive()) {
       return FALSE;

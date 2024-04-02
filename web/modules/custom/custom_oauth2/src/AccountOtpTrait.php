@@ -41,6 +41,13 @@ trait AccountOtpTrait {
       ];
     }
 
+    $is_sandbox_enabled = \Drupal::config('custom_oauth2.settings')->get('otp_sandbox');
+    if ($is_sandbox_enabled) {
+      return [
+        'status' => TRUE,
+        'message' => ''
+      ];
+    }
     $connect = \Drupal::database();
     $query = $connect->select('custom_oauth2')
       ->condition('uid', $user->id())

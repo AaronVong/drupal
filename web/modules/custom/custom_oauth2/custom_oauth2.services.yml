@@ -5,7 +5,7 @@ services:
   custom_oauth2.account_verity:
     class: Drupal\custom_oauth2\Services\AccountVerify
     arguments: ['@logger.factory', '@plugin.manager.mail']
-  custom_oauth2.ge_user_repositories:
+  custom_oauth2.co2_user_repositories:
     class: Drupal\custom_oauth2\Repositories\Co2UserRepositories
     arguments: ['@user.auth']
   custom_oauth2.grant_token:

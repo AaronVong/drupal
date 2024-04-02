@@ -14,7 +14,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * @Oauth2Grant(
  *   id = "co2_password",
- *   label = @Translation("Good Evening Password Oauth 2 Grant")
+ *   label = @Translation("Custom Oauth2 Password Oauth 2 Grant")
  * )
  */
 class Co2Password extends Oauth2GrantBase {
@@ -54,7 +54,7 @@ class Co2Password extends Oauth2GrantBase {
       $configuration,
       $plugin_id,
       $plugin_definition,
-      $container->get('custom_oauth2.ge_user_repositories'),
+      $container->get('custom_oauth2.co2_user_repositories'),
       $container->get('simple_oauth.repositories.refresh_token'),
       $container->get('config.factory')
     );

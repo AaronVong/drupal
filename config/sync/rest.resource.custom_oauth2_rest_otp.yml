@@ -1,0 +1,20 @@
+uuid: 5b069000-ae0a-48f1-a440-ea121ffc151c
+langcode: en
+status: true
+dependencies:
+  module:
+    - custom_oauth2
+    - serialization
+    - simple_oauth
+    - user
+id: custom_oauth2_rest_otp
+plugin_id: custom_oauth2_rest_otp
+granularity: resource
+configuration:
+  methods:
+    - POST
+  formats:
+    - json
+  authentication:
+    - oauth2
+    - cookie

@@ -78,7 +78,6 @@ class Co2SettingsForm extends ConfigFormBase {
       '#default_value' => $this->config('custom_oauth2.settings')
         ->get('otp_sandbox'),
     ];
-
     return parent::buildForm($form, $form_state);
   }
 
