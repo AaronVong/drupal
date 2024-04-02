@@ -1,0 +1,14 @@
+uuid: 3abc10fc-046f-459c-a5c4-949c27da7737
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.app_user
+  module:
+    - user
+id: user_remove_role_action.app_user
+label: 'Remove the App User role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: app_user

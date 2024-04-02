@@ -1,0 +1,9 @@
+uuid: dc57e3bc-7175-4dd8-a6b7-e8fe12ca8a1b
+langcode: en
+status: true
+dependencies: {  }
+id: app_user
+label: 'App User'
+weight: 4
+is_admin: null
+permissions: {  }
