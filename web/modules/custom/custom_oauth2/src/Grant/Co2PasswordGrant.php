@@ -14,7 +14,7 @@ use League\OAuth2\Server\ResponseTypes\ResponseTypeInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
 /**
- * Ge Password grant type class
+ * Co2 Password grant type class
  */
 class Co2PasswordGrant extends PasswordGrant {
 

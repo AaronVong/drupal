@@ -122,7 +122,8 @@ parameters:
     # render array, hence varying every render array by these cache contexts.
     #
     # @default ['languages:language_interface', 'theme', 'user.permissions']
-    required_cache_contexts: ['languages:language_interface', 'theme', 'user.permissions']
+    required_cache_contexts:
+      ["languages:language_interface", "theme", "user.permissions"]
     # Renderer automatic placeholdering conditions:
     #
     # Drupal allows portions of the page to be automatically deferred when
@@ -147,7 +148,7 @@ parameters:
       # Disable by setting to [].
       #
       # @default ['session', 'user']
-      contexts: ['session', 'user']
+      contexts: ["session", "user"]
       # Tags with a high invalidation frequency.
       #
       # Disable by setting to [].
@@ -206,14 +207,14 @@ parameters:
   # for more information about the topic in general.
   # Note: By default the configuration is disabled.
   cors.config:
-    enabled: false
+    enabled: true
     # Specify allowed headers, like 'x-allowed-header'.
-    allowedHeaders: []
+    allowedHeaders: ["*"]
     # Specify allowed request methods, specify ['*'] to allow all possible ones.
-    allowedMethods: []
+    allowedMethods: ["GET", "POST", "PATCH", "DELETE"]
     # Configure requests allowed from specific origins. Do not include trailing
     # slashes with URLs.
-    allowedOrigins: ['*']
+    allowedOrigins: ["http://localhost:3000", "localhost:3000"]
     # Configure requests allowed from origins, matching against regex patterns.
     allowedOriginsPatterns: []
     # Sets the Access-Control-Expose-Headers header.
