@@ -3,6 +3,7 @@
 namespace Drupal\custom_oauth2\Plugin\rest\resource;
 
 use Drupal\Core\KeyValueStore\KeyValueFactoryInterface;
+use Drupal\custom_oauth2\AccountOtpTrait;
 use Drupal\rest\ModifiedResourceResponse;
 use Drupal\rest\Plugin\ResourceBase;
 use Drupal\user\Entity\User;
@@ -44,6 +45,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * @see \Drupal\rest\Plugin\rest\resource\EntityResource
  */
 class RestOtp extends ResourceBase {
+
+  use AccountOtpTrait;
 
   /**
    * The key-value storage.
@@ -121,6 +124,9 @@ class RestOtp extends ResourceBase {
     }
 
     try {
+      if (empty($data['email'])) {
+        return new ModifiedResourceResponse(['message' => "Email not found"], 400);
+      }
       $users = \Drupal::entityTypeManager()->getStorage('user')->loadByProperties(['mail' => $data['email']]);
       /**
        * @var User $user
@@ -134,16 +140,15 @@ class RestOtp extends ResourceBase {
         return $this->verifyOtp($user, $data);
       }
       elseif ($action === "resend") {
-        $user =
         $is_success = $this->account_verify->reSendOtpToEmail($user);
         if (!$is_success) {
-          return new ModifiedResourceResponse(['message' => "Failed to re-send OTP, account is already activate or reach re-send limitation, please contact administrator for support."], 400);
+          return new ModifiedResourceResponse(['message' => "Failed to re-send OTP, account is already activate or reach re-send limitation, please contact administrator for support.", 'data' => $this->getOtpData($user->id())], 400);
         }
       }
       else {
         throw new \Exception('Invalid action for rest otp');
       }
-      return new ModifiedResourceResponse(['message' => 'Success, OTP has been ' . $action], 200);
+      return new ModifiedResourceResponse(['message' => 'Success, OTP has been ' . $action, 'data' => $this->getOtpData($user->id())], 200);
     } catch (\Exception $exception) {
       $this->logger->error($exception->getMessage());
       return new ModifiedResourceResponse(['message' => 'Failed to ' . $action . ' OTP'], 500);
@@ -180,6 +185,10 @@ class RestOtp extends ResourceBase {
 
     try {
       $token = $this->grant_token->grantPasswordAccount($user, $client_id, $client_secret)->getBody();
+      // Delete token after it verify and success login user
+      \Drupal::database()->delete("custom_oauth2")
+      ->condition('uid', $user->id())
+      ->execute();
       return new ModifiedResourceResponse(json_decode($token, TRUE), 200);
     }
     catch(\Exception $exception) {

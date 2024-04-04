@@ -23,6 +23,7 @@
         "drupal/core-composer-scaffold": "^10.2",
         "drupal/core-project-message": "^10.2",
         "drupal/core-recommended": "^10.2",
+        "drupal/field_group": "^3.4",
         "drupal/filter_perms": "^2.0",
         "drupal/gutenberg": "^2.8",
         "drupal/inline_entity_form": "^3.0@RC",

@@ -51,8 +51,10 @@ trait AccountOtpTrait {
     $connect = \Drupal::database();
     $query = $connect->select('custom_oauth2')
       ->condition('uid', $user->id())
-      ->condition('otp_code', $otp);
+      ->condition('otp_code', $otp)
+      ->condition("status", '1');
     $query->fields('custom_oauth2', [
+      'id',
       'uid',
       'otp_code',
       'status',
@@ -64,7 +66,7 @@ trait AccountOtpTrait {
       'status' => TRUE,
       'message' => '',
     ];
-    if (empty($result)) {
+    if (empty($record)) {
       $result['status'] = FALSE;
       $result['message'] = 'OTP does not correct';
       return $result;
@@ -103,5 +105,10 @@ trait AccountOtpTrait {
     $query->fields($fields);
     return $query->execute();
   }
-
+  public function getOtpData($uid) {
+    return \Drupal::database()->select("custom_oauth2")
+      ->condition('uid', $uid)
+      ->condition("status", '1')
+      ->fields('custom_oauth2', ['id', 'uid', 'expired', 'next_send', 'created'])->execute()->fetchAssoc();
+  }
 }

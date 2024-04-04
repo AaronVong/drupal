@@ -3,6 +3,7 @@
 namespace Drupal\custom_oauth2\Plugin\rest\resource;
 
 use Drupal\Core\KeyValueStore\KeyValueFactoryInterface;
+use Drupal\custom_oauth2\AccountOtpTrait;
 use Drupal\rest\ModifiedResourceResponse;
 use Drupal\rest\Plugin\ResourceBase;
 use Drupal\rest\ResourceResponse;
@@ -46,6 +47,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  */
 class RestSignUpResource extends ResourceBase {
 
+  use AccountOtpTrait;
   /**
    * The key-value storage.
    *
@@ -152,7 +154,7 @@ class RestSignUpResource extends ResourceBase {
       if (empty($is_sandbox_enabled)) {
         $this->account_verify->sendOtpToEmail($new_account);
       }
-      return new ModifiedResourceResponse(['message' => 'Sign up successful, an email with OTP has been sent', 'uid' => $new_account->id()], 200);
+      return new ModifiedResourceResponse(['message' => 'Sign up successful, an email with OTP has been sent', 'uid' => $new_account->id(), 'data' => $this->getOtpData($new_account->id())], 200);
     } catch (\Exception $exception) {
       $this->logger->error($exception->getMessage());
       return new ModifiedResourceResponse(['message' => 'Failed to sign up'], 500);
