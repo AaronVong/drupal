@@ -1,8 +1,0 @@
-settings:
-  plugins:
-    ckeditor5_codeBlock:
-      languages:
-        0:
-          label: 'Văn bản thuần'
-        5:
-          label: 'Khác biệt'
