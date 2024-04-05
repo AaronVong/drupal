@@ -1,13 +1,13 @@
-uuid: 13dcc529-775d-4998-98aa-a1ffcbfe4a48
+uuid: 8e11aa3e-7562-49c6-ab8f-d77dd3bde6fe
 langcode: en
-status: false
+status: true
 dependencies:
   module:
+    - custom_oauth2
     - serialization
     - simple_oauth
-    - user
-id: entity.user
-plugin_id: 'entity:user'
+id: rest_user_detail_info_resource
+plugin_id: rest_user_detail_info_resource
 granularity: resource
 configuration:
   methods:
@@ -16,4 +16,3 @@ configuration:
     - json
   authentication:
     - oauth2
-    - cookie

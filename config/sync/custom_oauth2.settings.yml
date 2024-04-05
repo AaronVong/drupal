@@ -3,7 +3,7 @@ _core:
 resend_otp_limitation: '3'
 otp_expired_time: '300'
 resend_time_gap: '180'
-otp_sandbox: 0
+otp_sandbox: 1
 roles_assign:
   app_user: app_user
   content_editor: 0
