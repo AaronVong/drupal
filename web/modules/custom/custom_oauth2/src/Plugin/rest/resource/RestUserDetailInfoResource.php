@@ -111,7 +111,7 @@ final class RestUserDetailInfoResource extends ResourceBase {
       }
     }
 
-    return new ModifiedResourceResponse(['message' => 'Success', "data" => $data], 400);
+    return new ModifiedResourceResponse(['message' => 'Success', "data" => $data], 200);
   }
 
 }
