@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "21d82c0f9a93a7aa9718928f1ce38541",
+    "content-hash": "bcb8dc46c1037c78bdca3142d525418c",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -3095,6 +3095,57 @@
             "homepage": "https://www.drupal.org/project/simple_oauth",
             "support": {
                 "source": "https://git.drupalcode.org/project/simple_oauth"
+            }
+        },
+        {
+            "name": "drupal/simple_oauth_revoke",
+            "version": "2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/simple_oauth_revoke.git",
+                "reference": "2.0.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/simple_oauth_revoke-2.0.0.zip",
+                "reference": "2.0.0",
+                "shasum": "45c781e9930efa8eed4f38879e466c1089f304e9"
+            },
+            "require": {
+                "drupal/core": "^10",
+                "drupal/simple_oauth": "^5.2"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "2.0.0",
+                    "datestamp": "1705612822",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Float",
+                    "homepage": "https://www.drupal.org/float",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "mediabounds",
+                    "homepage": "https://www.drupal.org/user/292228"
+                }
+            ],
+            "description": "Adds an endpoint to revoke oauth tokens.",
+            "homepage": "https://www.drupal.org/project/simple_oauth_revoke",
+            "support": {
+                "source": "https://git.drupalcode.org/project/simple_oauth_revoke",
+                "issues": "https://www.drupal.org/project/issues/simple_oauth_revoke"
             }
         },
         {
