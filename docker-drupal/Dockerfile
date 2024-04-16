@@ -131,7 +131,7 @@ SHELL ["/bin/bash", "--login", "-c"]
 RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.1/install.sh | bash
 
 RUN nvm install 10.24.1
-# install drush
+# install drush, THIS NO LONGER NEEDED,the repo been archive
 # RUN wget -O drush.phar https://github.com/drush-ops/drush-launcher/releases/latest/download/drush.phar && \
 #         chmod +x drush.phar && \
 #         mv drush.phar /usr/local/bin/drush
@@ -149,6 +149,7 @@ WORKDIR /var/www/html
 
 # make the terminal prettier
 RUN echo 'export PS1="\[\033[0;32m\][\u@docker]\[\033[0m\] in \[\033[0;34m\]\w\[\033[0m\] \n\$ "' >> /root/.bashrc
+# Allow to run drush in terminal by simply call "drush <command>"
 RUN echo 'export PATH="/var/www/html/vendor/bin/:$PATH"' >> /root/.bashrc
 
 
